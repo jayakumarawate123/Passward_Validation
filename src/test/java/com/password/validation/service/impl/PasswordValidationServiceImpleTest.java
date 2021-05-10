@@ -50,5 +50,20 @@ class PasswordValidationServiceImpleTest {
 		});
 		assertEquals(ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER, pwdExcp.getMessage());
 	}
+	
+	@DisplayName("Validating password length is not greater than 8 or not have atleast single"
+			+ "	 * Upper / on number")
+	@ParameterizedTest
+	@ValueSource(strings = { "password", "pass##", "@a","a","&%$aa*&","  a  ","null" })
+	void validatePassword_ThrowsPasswordValidationException_IfPasswordLengthIsNotGreaterThanEightOrNotHaveAtleastOneUpperOrOneNumber(
+			String pwd) {
+
+		PasswordValidationException pwdExcp = Assertions.assertThrows(PasswordValidationException.class, () -> {
+			passwordValidation.validatePassword(pwd);
+		});
+		assertEquals(
+				ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_UPPERCASE_CHAR_OR_ONE_NUMBER_OR_ATLEAST_EIGHT_CHAR,
+				pwdExcp.getMessage());
+	}
 
 }
