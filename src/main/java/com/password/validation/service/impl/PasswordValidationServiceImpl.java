@@ -20,11 +20,20 @@ public class PasswordValidationServiceImpl implements PasswordValidationService 
 		if (isNull.test(password)) {
 			throw new PasswordValidationException(PASSWORD_SHOULD_NOT_NULL);
 		}
-		
+
+		return checkPasswordHasMandatoryLetter(password);
+	}
+	
+	/**
+	 * Method for checking the password has required letter or not
+	 * 
+	 * @param password
+	 * @return
+	 */
+	private String checkPasswordHasMandatoryLetter(final String password) {
 		if (!isPasswordHaveAtLeastSingleLowerChar.test(password)) {
 			throw new PasswordValidationException(PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER);
-		}
-		else if (!isPasswordLengthLessThanEight.test(password) || isPasswordHaveAtLeastSingleUpperChar.test(password)
+		} else if (!isPasswordLengthLessThanEight.test(password) || isPasswordHaveAtLeastSingleUpperChar.test(password)
 				|| isPasswordHaveAtLeastNumber.test(password)) {
 			return SUCCESS;
 		} else {
