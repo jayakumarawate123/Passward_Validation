@@ -48,7 +48,7 @@ class ValidationUtilTest {
 	@DisplayName("Expecting true if password have at least one number")
 	@ParameterizedTest
 	@ValueSource(strings = {"", " ", "PASSWORD","JK","#$%","password"})
-	void isPasswordHaveAtLeastNumber_False_IfValueNotHaveAtleastOneLowerLetter() {
-		assertFalse(ValidationUtil.isPasswordHaveAtLeastNumber.test("passWords"));
+	void isPasswordHaveAtLeastNumber_False_IfValueNotHaveAtleastOneLowerLetter(String str) {
+		assertFalse(ValidationUtil.isPasswordHaveAtLeastNumber.test(str));
 	}
 }

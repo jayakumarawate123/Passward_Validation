@@ -43,10 +43,10 @@ class PasswordValidationServiceImpleTest {
 	@DisplayName("Validating password should have atleast one lowercase letter")
 	@ParameterizedTest
 	@ValueSource(strings = { "PASSWORDS", "#4AF", "", "   ", "#%$^&", "#%$^&@#$%","6454ADGBHY" })
-	void validatePassword_ThrowsPasswordValidationException_IfPasswordNotHaveAtleastSingleLowercaseLetter(String pwd) {
+	void validatePassword_ThrowsPasswordValidationException_IfPasswordNotHaveAtleastSingleLowercaseLetter(String password) {
 
 		PasswordValidationException pwdExcp = Assertions.assertThrows(PasswordValidationException.class, () -> {
-			passwordValidation.validatePassword(pwd);
+			passwordValidation.validatePassword(password);
 		});
 		assertEquals(ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER, pwdExcp.getMessage());
 	}
@@ -56,10 +56,10 @@ class PasswordValidationServiceImpleTest {
 	@ParameterizedTest
 	@ValueSource(strings = { "password", "pass##", "@a","a","&%$aa*&","  a  ","null" })
 	void validatePassword_ThrowsPasswordValidationException_IfPasswordLengthIsNotGreaterThanEightOrNotHaveAtleastOneUpperOrOneNumber(
-			String pwd) {
+			String password) {
 
 		PasswordValidationException pwdExcp = Assertions.assertThrows(PasswordValidationException.class, () -> {
-			passwordValidation.validatePassword(pwd);
+			passwordValidation.validatePassword(password);
 		});
 		assertEquals(
 				ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_UPPERCASE_CHAR_OR_ONE_NUMBER_OR_ATLEAST_EIGHT_CHAR,
@@ -70,8 +70,8 @@ class PasswordValidationServiceImpleTest {
 	@DisplayName("Password have atleast one lowercase letter and length is greater than 8 expected success")
 	@ParameterizedTest
 	@ValueSource(strings = { "pass@#$%*&", "    p    ","pA","passWords","a1&*^%","k  M" })
-	void validatePassword_ValidPassword_PasswordHaveAtleastOneLowercaseLetterAndLenghtGreaterThanEight(String str)
+	void validatePassword_ValidPassword_PasswordHaveAtleastOneLowercaseLetterAndLenghtGreaterThanEight(String password)
 			throws PasswordValidationException {
-		assertEquals(ErrorConstantMessage.SUCCESS, passwordValidation.validatePassword("pass@#$%*&"));
+		assertEquals(ErrorConstantMessage.SUCCESS, passwordValidation.validatePassword(password));
 	}
 }
