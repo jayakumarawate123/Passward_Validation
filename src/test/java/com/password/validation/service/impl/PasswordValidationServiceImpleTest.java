@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.password.validation.constant.ErrorConstantMessage;
 import com.password.validation.exception.PasswordValidationException;
@@ -37,6 +39,16 @@ class PasswordValidationServiceImpleTest {
 		});
 		assertEquals(ErrorConstantMessage.PASSWORD_SHOULD_NOT_NULL, pwdExcp.getMessage());
 	}
+	
+	@DisplayName("Validating password should have atleast one lowercase letter")
+	@ParameterizedTest
+	@ValueSource(strings = { "PASSWORDS", "#4AF", "", "   ", "#%$^&", "#%$^&@#$%","6454ADGBHY" })
+	void validatePassword_ThrowsPasswordValidationException_IfPasswordNotHaveAtleastSingleLowercaseLetter(String pwd) {
 
+		PasswordValidationException pwdExcp = Assertions.assertThrows(PasswordValidationException.class, () -> {
+			passwordValidation.validatePassword(pwd);
+		});
+		assertEquals(ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER, pwdExcp.getMessage());
+	}
 
 }
