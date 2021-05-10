@@ -65,5 +65,13 @@ class PasswordValidationServiceImpleTest {
 				ErrorConstantMessage.PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_UPPERCASE_CHAR_OR_ONE_NUMBER_OR_ATLEAST_EIGHT_CHAR,
 				pwdExcp.getMessage());
 	}
-
+	
+	
+	@DisplayName("Password have atleast one lowercase letter and length is greater than 8 expected success")
+	@ParameterizedTest
+	@ValueSource(strings = { "pass@#$%*&", "    p    ","pA","passWords","a1&*^%","k  M" })
+	void validatePassword_ValidPassword_PasswordHaveAtleastOneLowercaseLetterAndLenghtGreaterThanEight(String str)
+			throws PasswordValidationException {
+		assertEquals(ErrorConstantMessage.SUCCESS, passwordValidation.validatePassword("pass@#$%*&"));
+	}
 }
