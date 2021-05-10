@@ -23,7 +23,7 @@ public class PasswordValidationServiceImpl implements PasswordValidationService 
 
 	ExecutorService executorsService = Executors.newFixedThreadPool(5);
 	
-	public String validatePassword(final String password) throws PasswordValidationException {
+	public String validatePassword(final String password) {
 
 		Future<String> result = executorsService.submit(() -> {
 			if (isNull.test(password)) {
@@ -42,6 +42,7 @@ public class PasswordValidationServiceImpl implements PasswordValidationService 
 	 * @return
 	 */
 	private String checkPasswordHasMandatoryLetter(final String password) {
+		
 		if (!isPasswordHaveAtLeastSingleLowerChar.test(password)) {
 			throw new PasswordValidationException(PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER);
 		} else if (!isPasswordLengthLessThanEight.test(password) || isPasswordHaveAtLeastSingleUpperChar.test(password)

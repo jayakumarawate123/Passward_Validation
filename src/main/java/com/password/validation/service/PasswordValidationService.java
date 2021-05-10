@@ -21,5 +21,5 @@ public interface PasswordValidationService {
 	 * @return
 	 * @throws PasswordValidationException
 	 */
-	public String validatePassword(final String password) throws PasswordValidationException;
+	public String validatePassword(final String password);
 }
