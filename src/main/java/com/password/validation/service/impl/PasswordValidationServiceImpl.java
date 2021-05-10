@@ -24,7 +24,13 @@ public class PasswordValidationServiceImpl implements PasswordValidationService 
 		if (!isPasswordHaveAtLeastSingleLowerChar.test(password)) {
 			throw new PasswordValidationException(PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_LOWERCASE_LETTER);
 		}
-		return null;
+		else if (!isPasswordLengthLessThanEight.test(password) || isPasswordHaveAtLeastSingleUpperChar.test(password)
+				|| isPasswordHaveAtLeastNumber.test(password)) {
+			return SUCCESS;
+		} else {
+			throw new PasswordValidationException(
+					PASSWORD_SHOULD_HAVE_AT_LEAST_ONE_UPPERCASE_CHAR_OR_ONE_NUMBER_OR_ATLEAST_EIGHT_CHAR);
+		}
 	}
 
 }
